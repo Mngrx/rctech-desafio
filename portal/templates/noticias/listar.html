@@ -1,9 +1,39 @@
 {% extends '../layout/base.html' %}
 
 {% block content %}
+<!--<link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">-->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h2>Listagem de notícias!</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 text-center">
+            <table id="table" class="table table-striped table-bordered" style="width:100%" >
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Texto</th>
+                        <th>Data de captura</th>
+                        <th>Site</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for noticia in noticias %}
+                        <tr>
+                            <td>{{ noticia.titulo }}</td>
+                            <td>{{ noticia.texto }}</td>
+                            <td>{{ noticia.data_ins }}</td>
+                            <td>{{ noticia.site.nome }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
 
-{% for noticia in noticias %}
-{{ noticia }}
-{% endfor %}
-
+        </div>
+    </div>
+</div>
 {% endblock content %}
