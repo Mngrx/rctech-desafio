@@ -13,6 +13,8 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         origin = kwargs['origin'].title() if(kwargs['origin']) else 'Tecmundo';
 
+        Site.objects.get_or_create(nome=origin, url='https://www.tecmundo.com.br/',
+                                          class_pattern='tec--card__title__link')
         if origin != 'Tecmundo':
             self.stdout.write(self.style.NOTICE('Please, choose a valid value.'))
         else:
@@ -27,11 +29,12 @@ class Command(BaseCommand):
 
             noticesFromPage = soup.find_all(class_=site.class_pattern)
 
-            dataToSave = []
-
             for notice in noticesFromPage:
-                n = Noticia(titulo=BS.getText(notice).strip(), link=BS.get(notice, 'href'), site=site)
-                n.save(force_insert=True)
+                try:
+                    obj = Noticia.objects.get(titulo=BS.getText(notice).strip(), link=BS.get(notice, 'href'), site=site)
+                except Noticia.DoesNotExist:
+                    obj = Noticia(titulo=BS.getText(notice).strip(), link=BS.get(notice, 'href'), site=site)
+                    obj.save()
 
 
             self.stdout.write(self.style.SUCCESS('Finished!'))
