@@ -9,5 +9,4 @@ from django.http import HttpResponse
 
 def noticias_listar(request):
     noticias = Noticia.objects.all()
-    # noticias = serializers.serialize('json', Noticia.objects.all())
     return render(request, 'noticias/listar.html', {'noticias': noticias})

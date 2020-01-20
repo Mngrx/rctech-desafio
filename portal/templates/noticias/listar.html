@@ -16,7 +16,6 @@
                 <thead>
                     <tr>
                         <th>Título</th>
-                        <th>Texto</th>
                         <th>Data de captura</th>
                         <th>Site</th>
                     </tr>
@@ -24,8 +23,7 @@
                 <tbody>
                     {% for noticia in noticias %}
                         <tr>
-                            <td>{{ noticia.titulo }}</td>
-                            <td>{{ noticia.texto }}</td>
+                            <td><a href="{{ noticia.link }}" target="_blank">{{ noticia.titulo }}</a></td>
                             <td>{{ noticia.data_ins }}</td>
                             <td>{{ noticia.site.nome }}</td>
                         </tr>
